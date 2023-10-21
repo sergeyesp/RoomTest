@@ -6,18 +6,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.RecyclerView
+import com.example.roomtest.APP
 import com.example.roomtest.R
+import com.example.roomtest.adapter.NoteAdapter
 import com.example.roomtest.databinding.FragmentStartBinding
 
 
 class StartFragment : Fragment() {
 
     lateinit var binding: FragmentStartBinding
+    lateinit var recyclerView: RecyclerView
+    lateinit var adapter: NoteAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View? {this
         binding = FragmentStartBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
@@ -28,7 +33,18 @@ class StartFragment : Fragment() {
     }
 
     private fun init() {
-        val viewModel = ViewModelProvider(this).get(StartViewModel::class.java)
+        val viewModel = ViewModelProvider(this)[StartViewModel::class.java]
         viewModel.initDatabase()
+        recyclerView = binding.rvNotes
+        adapter = NoteAdapter()
+        recyclerView.adapter = adapter
+        viewModel.getAllNotes().observe(viewLifecycleOwner) { listNotes ->
+            listNotes.asReversed()
+            adapter.setList(listNotes)
+        }
+
+        binding.btnNext.setOnClickListener {
+            APP.navController.navigate(R.id.action_startFragment_to_addNoteFragment)
+        }
     }
 }
