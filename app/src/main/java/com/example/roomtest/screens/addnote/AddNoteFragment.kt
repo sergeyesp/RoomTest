@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.roomtest.APP
 import com.example.roomtest.R
 import com.example.roomtest.databinding.FragmentAddNoteBinding
+import com.example.roomtest.model.NoteModel
 
 class AddNoteFragment : Fragment() {
 
@@ -30,6 +31,12 @@ class AddNoteFragment : Fragment() {
     private fun init() {
         val viewModel = ViewModelProvider(this)[AddNoteViewModel::class.java]
 
+        binding.btnAddNote.setOnClickListener {
+            val title = binding.etAddTitle.text.toString()
+            val description = binding.etAddDesc.text.toString()
+            viewModel.insert(NoteModel(title = title, description = description)) {}
+            APP.navController.navigate(R.id.action_addNoteFragment_to_startFragment)
+        }
         binding.btnBack.setOnClickListener {
             APP.navController.navigate(R.id.action_addNoteFragment_to_startFragment)
         }

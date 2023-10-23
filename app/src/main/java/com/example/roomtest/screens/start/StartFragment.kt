@@ -39,8 +39,7 @@ class StartFragment : Fragment() {
         adapter = NoteAdapter()
         recyclerView.adapter = adapter
         viewModel.getAllNotes().observe(viewLifecycleOwner) { listNotes ->
-            listNotes.asReversed()
-            adapter.setList(listNotes)
+            adapter.setList(listNotes.asReversed())
         }
 
         binding.btnNext.setOnClickListener {
