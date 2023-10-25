@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.roomtest.APP
 import com.example.roomtest.R
 import com.example.roomtest.model.NoteModel
+import com.example.roomtest.screens.start.StartFragment
 import kotlinx.android.synthetic.main.item_layout.view.*
 
 class NoteAdapter: RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
@@ -38,7 +39,7 @@ class NoteAdapter: RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
     override fun onViewAttachedToWindow(holder: NoteViewHolder) {
         super.onViewAttachedToWindow(holder)
         holder.itemView.setOnClickListener {
-
+            StartFragment.clickNote(listNote[holder.adapterPosition])
         }
     }
 

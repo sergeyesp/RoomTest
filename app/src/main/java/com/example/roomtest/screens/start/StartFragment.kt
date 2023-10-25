@@ -52,6 +52,7 @@ class StartFragment : Fragment() {
         fun clickNote(noteModel: NoteModel) {
             val bundle = Bundle()
             bundle.putSerializable("note", noteModel)
+            APP.navController.navigate(R.id.action_startFragment_to_detailFragment, bundle)
         }
     }
 }
